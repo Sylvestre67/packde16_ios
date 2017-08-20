@@ -37,6 +37,9 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		95FEA1191F47E29B00C15931 /* pack_de_nyls.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 95FEA1181F47E29B00C15931 /* pack_de_nyls.mp3 */; };
+		95FEA1391F48A7A400C15931 /* 11_je_ne_comprends_pas.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 95FEA1381F48A7A400C15931 /* 11_je_ne_comprends_pas.mp3 */; };
+		95FEA1471F48BC4200C15931 /* Museo300-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 95FEA1461F48BC4200C15931 /* Museo300-Regular.otf */; };
+		95FEA1671F48C36000C15931 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95FEA1661F48C36000C15931 /* Ionicons.ttf */; };
 		F27F099BB3E84A34B6A9BBF9 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E013CA01E214449B5047C70 /* libRNSound.a */; };
 /* End PBXBuildFile section */
 
@@ -295,6 +298,9 @@
 		7E013CA01E214449B5047C70 /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		95FEA1181F47E29B00C15931 /* pack_de_nyls.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pack_de_nyls.mp3; path = ../audio/pack_de_nyls.mp3; sourceTree = "<group>"; };
+		95FEA1381F48A7A400C15931 /* 11_je_ne_comprends_pas.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 11_je_ne_comprends_pas.mp3; path = ../../../sites/pack216/p216/src/audio/11_je_ne_comprends_pas.mp3; sourceTree = "<group>"; };
+		95FEA1461F48BC4200C15931 /* Museo300-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Museo300-Regular.otf"; path = "../../../sites/pack216/p216/src/assets/fonts/Museo300-Regular.otf"; sourceTree = "<group>"; };
+		95FEA1661F48C36000C15931 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = ../../../Desktop/Ionicons.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -509,6 +515,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				95FEA1661F48C36000C15931 /* Ionicons.ttf */,
+				95FEA1461F48BC4200C15931 /* Museo300-Regular.otf */,
+				95FEA1381F48A7A400C15931 /* 11_je_ne_comprends_pas.mp3 */,
 				95FEA1181F47E29B00C15931 /* pack_de_nyls.mp3 */,
 				13B07FAE1A68108700A75B9A /* packde16 */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -935,7 +944,10 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				95FEA1671F48C36000C15931 /* Ionicons.ttf in Resources */,
 				95FEA1191F47E29B00C15931 /* pack_de_nyls.mp3 in Resources */,
+				95FEA1391F48A7A400C15931 /* 11_je_ne_comprends_pas.mp3 in Resources */,
+				95FEA1471F48BC4200C15931 /* Museo300-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

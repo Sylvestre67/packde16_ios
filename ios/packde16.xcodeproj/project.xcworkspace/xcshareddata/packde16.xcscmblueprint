@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "13431625E8AC8D1C8E2ACBBA4C26AF0CB7755FB0",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "13431625E8AC8D1C8E2ACBBA4C26AF0CB7755FB0" : 9223372036854775807,
+    "5AE37B06CC2B936E4BB8F80BB86F208C5623E379" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "AF9B5D80-C316-4F97-95E7-5F0685341A7B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "13431625E8AC8D1C8E2ACBBA4C26AF0CB7755FB0" : "packde16\/",
+    "5AE37B06CC2B936E4BB8F80BB86F208C5623E379" : "..\/sites\/pack216"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "packde16",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ios\/packde16.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Sylvestre67\/packde16_ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "13431625E8AC8D1C8E2ACBBA4C26AF0CB7755FB0"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Sylvestre67\/packde16.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5AE37B06CC2B936E4BB8F80BB86F208C5623E379"
+    }
+  ]
+}
