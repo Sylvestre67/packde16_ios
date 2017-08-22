@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, TouchableHighlight, Alert } from 'react-native';
 
-// Import the react-native-sound module
+import _ from 'lodash';
 import Sound from 'react-native-sound'
 import Swiper from 'react-native-swiper';
 
@@ -74,15 +74,20 @@ export default class App extends React.Component {
 		this._playSound = this._playSound.bind(this);
 		this._playPauseSound = this._playPauseSound.bind(this);
 		this._renderPagination = this._renderPagination.bind(this);
+
+		// this._loadNewSound = _.debounce(this._loadNewSound, 1000);
+		this._handleSwipe = _.debounce(this._handleSwipe, 1000);
+
 		this.swiper = {};
 	}
 
 	componentWillMount(){
 		this.setState(() => {
 			return Object.assign({},{
+				releaseAndReload: false,
 				hasError: false,
 				isPlaying: false,
-				isLoaded: false,
+				isLoaded: true,
 				tracks: tracks,
 				index: 0,
 				sound: {}
@@ -90,10 +95,7 @@ export default class App extends React.Component {
 		});
 	}
 
-
-	componentDidUpdate(prevProps, prevState){
-
-	}
+	componentDidUpdate(prevProps, prevState){}
 
 	componentDidMount(){
 		/* Load track 0 */
@@ -101,18 +103,12 @@ export default class App extends React.Component {
 	}
 
 	_loadNewSound(trackIndex){
-		if(this.state.sound.isLoaded && this.state.sound.isLoaded()){
-			this.state.sound.release();
-		}
 
 		this.setState((prevState) => {
 			return Object.assign(prevState,{ isLoaded: false })
 		});
 
-		// Load new sound
-		let track = this.state.tracks[trackIndex].url;
-		// Sound.MAIN_BUNDLE,
-		let newSound = new Sound(this.state.tracks[trackIndex].url, this.state.tracks[trackIndex].basePath,(error) => {
+		newSound = new Sound(this.state.tracks[trackIndex].url, this.state.tracks[trackIndex].basePath,(error) => {
 			if (error) {
 				console.log('failed to load the sound', error);
 				Alert.alert('error', error.message);
@@ -121,7 +117,6 @@ export default class App extends React.Component {
 				this.setState((prevState) => {
 					return Object.assign(prevState,{ isLoaded: true, sound: newSound })
 				});
-				// Play song once loaded.
 				this._playSound();
 			}
 		});
@@ -166,11 +161,13 @@ export default class App extends React.Component {
 	}
 
 	_handleSwipe(index){
+
 		this.setState((prevState) => {
-			/* load track at index */
-			this._loadNewSound(index);
-			return Object.assign(prevState,{ index: index, isPlaying: false, isLoaded: false })
+			(this.state.sound.release) ? this.state.sound.release() : false;
+			return Object.assign(prevState,{ sound: {} })
 		});
+
+		this._loadNewSound(index);
 	}
 
 	_renderSwipedView(){
@@ -187,17 +184,27 @@ export default class App extends React.Component {
 					<PlayPause {...this.state} onPress={this._playPauseSound}/>
 					<TrackDetails {...this.state} />
 				</View>
-				{/*<Mask {...this.state} />*/}
 			</View>)
 	}
 
 	render() {
 		return (<Swiper ref={component => this.swiper = component}
-			        loop={false}
-			        renderPagination={ this._renderPagination }
-			        onMomentumScrollEnd={(e, state, context) => {
-			            return this._handleSwipe(state.index)
-			        }}>
+			            loop={false}
+			            renderPagination={ this._renderPagination }
+			            onMomentumScrollEnd={(e, state, context) => {
+			            	/* pause the song */
+			            	(this.state.sound.pause) ? this.state.sound.pause() : false;
+
+							this.setState((prevState) => {
+								return Object.assign(prevState,{
+									index: state.index,
+									isPlaying: false,
+									isLoaded: false })
+							});
+
+			               return this._handleSwipe(state.index)
+			            }}
+			            onTouchStartCapture={(e, state, context) => {}}>
 				{this._renderSwipedView()}
 			</Swiper>)
 	}
