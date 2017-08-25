@@ -4,6 +4,7 @@ import { StyleSheet, View, Image, Dimensions, ActivityIndicator, Alert } from 'r
 import _ from 'lodash';
 import Sound from 'react-native-sound'
 import Swiper from 'react-native-swiper';
+import KeepAwake from 'react-native-keep-awake';
 
 import PlayPause from './components/PlayPause';
 import TrackDetails from './components/TrackDetails';
@@ -18,6 +19,9 @@ import dinner from './backgrounds/dinner.png';
 import toy from './backgrounds/toy.png';
 
 Sound.setCategory('Playback');
+KeepAwake.activate();
+
+console.log(KeepAwake);
 
 const { width, height } = Dimensions.get('window');
 const images = [blue_sky, bombes, caisse, burger, phone, ride, dinner, toy];
