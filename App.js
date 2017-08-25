@@ -1,14 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, TouchableHighlight, Alert } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, ActivityIndicator, Alert } from 'react-native';
 
 import _ from 'lodash';
 import Sound from 'react-native-sound'
 import Swiper from 'react-native-swiper';
 
-
 import PlayPause from './components/PlayPause';
 import TrackDetails from './components/TrackDetails';
-import Mask from './components/Mask';
 
 import blue_sky from './backgrounds/blue_sky.png';
 import bombes from './backgrounds/bombes.png';
@@ -25,48 +23,21 @@ const { width, height } = Dimensions.get('window');
 const images = [blue_sky, bombes, caisse, burger, phone, ride, dinner, toy];
 const tracks = [
 	{
-		url  : 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/11_je_ne_comprends_pas.mp3?raw=true',
+		url  : 'https://s3.eu-central-1.amazonaws.com/pack-de-16/11_je_ne_comprends_pas.mp3',
 		title: 'Je ne comprends pas',
 		feat : 'Mr. Kozmo ft. #packde16'
 	},
 	{
-		url: 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/pack_de_nyls.mp3?raw=true',
+		url: 'https://s3.eu-central-1.amazonaws.com/pack-de-16/pack_de_nyls.mp3',
 		title: 'Pack de Nyls',
 		feat: 'Mr. Kozmo ft. Nyls'
 	},
 	{
-		url: 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/pack_de_nyls.mp3?raw=true',
+		url: 'https://s3.eu-central-1.amazonaws.com/pack-de-16/pack_de_nyls.mp3',
 		title: 'Pack de Nyls',
 		feat: 'Mr. Kozmo ft. Nyls'
-	},
-	{
-		url: 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/pack_de_nyls.mp3?raw=true',
-		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls'
-	},
-	{
-		url: 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/pack_de_nyls.mp3?raw=true',
-		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls'
-	},
-	{
-		url: 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/pack_de_nyls.mp3?raw=true',
-		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls'
-	},
-	{
-		url: 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/pack_de_nyls.mp3?raw=true',
-		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls'
-	},
-	{
-		url: 'https://github.com/Sylvestre67/packde16_ios/blob/master/audio/pack_de_nyls.mp3?raw=true',
-		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls'
-	},
+	}
 ];
-
-// basePath: Sound.MAIN_BUNDLE,
 
 export default class App extends React.Component {
 	constructor(props){
@@ -74,9 +45,7 @@ export default class App extends React.Component {
 		this._playSound = this._playSound.bind(this);
 		this._playPauseSound = this._playPauseSound.bind(this);
 		this._renderPagination = this._renderPagination.bind(this);
-
-		// this._loadNewSound = _.debounce(this._loadNewSound, 1000);
-		this._handleSwipe = _.debounce(this._handleSwipe, 1000);
+		this._handleSwipe = _.debounce(this._handleSwipe, 500);
 
 		this.swiper = {};
 	}
@@ -125,23 +94,27 @@ export default class App extends React.Component {
 	}
 
 	_playSound(){
+
 		const song = this.state.sound;
-		if(!song.isLoaded()) {
-			// this.setState(() => { return { isPlaying: false } });
-			// Check back in 100ms.
-			setInterval(() => { this._playSound(); },100);
-		}else{
+
+		console.log(song);
+
+		if(song.isLoaded && song.isLoaded()) {
 			this.setState((prevState) => { return Object.assign(prevState,{ isPlaying: true }) });
 			song.play((success) => {
 				// This callback for when the sound has successfully been played to the end.
 				if (success) {
-					this.setState((prevState) => { return Object.assign(prevState,{ isPlaying: false }) });
-					// this._scrollToNext();
+					this.setState((prevState) => {
+						this._scrollToNext();
+						return Object.assign(prevState,{ isPlaying: false })
+					});
 				} else {
 					console.log('playback failed due to audio decoding errors');
 					this.setState((prevState) => { return Object.assign(prevState,{ hasError: true }) });
 				}
 			});
+		}else{
+			setTimeout(() => { this._playSound(); },500);
 		}
 	}
 
@@ -155,9 +128,10 @@ export default class App extends React.Component {
 	}
 
 	_scrollToNext(){
-		return (this.swiper.state.index < this.swiper.props.children.length - 1)
-			? (this.swiper.scrollBy(1, true),this._handleSwipe())
+		(this.swiper.state.index < this.swiper.props.children.length - 1)
+			? (this.swiper.scrollBy(1, true))
 			: false;
+		return true
 	}
 
 	_handleSwipe(index){

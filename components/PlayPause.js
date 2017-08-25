@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, Dimensions, TouchableHighlight, Animated, Easing } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 /*find icons name at https://ionicframework.com/docs/ionicons/*/
 
@@ -12,7 +12,7 @@ export default class PlayPause extends React.Component {
 	_renderIcons(){
 		let icon;
 		if(!this.props.isLoaded){
-			icon = <Icon name="ios-refresh" style={styles.playPauseIcon} />
+			icon = <ActivityIndicator animating={true} color={"black"}/>
 		}else{
 			icon = (this.props.isPlaying)
 				? <Icon name="ios-pause-outline" style={styles.playPauseIcon} />
