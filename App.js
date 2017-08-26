@@ -8,6 +8,7 @@ import KeepAwake from 'react-native-keep-awake';
 
 import PlayPause from './components/PlayPause';
 import TrackDetails from './components/TrackDetails';
+import FeatDetails from './components/FeatDetails';
 
 import blue_sky from './backgrounds/blue_sky.png';
 import bombes from './backgrounds/bombes.png';
@@ -21,25 +22,26 @@ import toy from './backgrounds/toy.png';
 Sound.setCategory('Playback');
 KeepAwake.activate();
 
-console.log(KeepAwake);
-
 const { width, height } = Dimensions.get('window');
 const images = [blue_sky, bombes, caisse, burger, phone, ride, dinner, toy];
 const tracks = [
 	{
 		url  : 'https://s3.eu-central-1.amazonaws.com/pack-de-16/11_je_ne_comprends_pas.mp3',
 		title: 'Je ne comprends pas',
-		feat : 'Mr. Kozmo ft. #packde16'
+		feat : 'Mr. Kozmo ft. #packde16',
+		avatar: burger
 	},
 	{
 		url: 'https://s3.eu-central-1.amazonaws.com/pack-de-16/pack_de_nyls.mp3',
 		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls'
+		feat: 'Mr. Kozmo ft. Nyls',
+		avatar: ride
 	},
 	{
 		url: 'https://s3.eu-central-1.amazonaws.com/pack-de-16/pack_de_nyls.mp3',
 		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls'
+		feat: 'Mr. Kozmo ft. Nyls',
+		avatar: toy
 	}
 ];
 
@@ -60,7 +62,7 @@ export default class App extends React.Component {
 				releaseAndReload: false,
 				hasError: false,
 				isPlaying: false,
-				isLoaded: true,
+				isLoaded: false,
 				tracks: tracks,
 				index: 0,
 				sound: {}
@@ -72,7 +74,7 @@ export default class App extends React.Component {
 
 	componentDidMount(){
 		/* Load track 0 */
-		this._loadNewSound(this.state.index);
+		// this._loadNewSound(this.state.index);
 	}
 
 	_loadNewSound(trackIndex){
@@ -100,8 +102,6 @@ export default class App extends React.Component {
 	_playSound(){
 
 		const song = this.state.sound;
-
-		console.log(song);
 
 		if(song.isLoaded && song.isLoaded()) {
 			this.setState((prevState) => { return Object.assign(prevState,{ isPlaying: true }) });
@@ -161,6 +161,7 @@ export default class App extends React.Component {
 				<View style={styles.cardStyle}>
 					<PlayPause {...this.state} onPress={this._playPauseSound}/>
 					<TrackDetails {...this.state} />
+					<FeatDetails {...this.state} />
 				</View>
 			</View>)
 	}
