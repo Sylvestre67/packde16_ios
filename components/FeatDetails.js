@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, Dimensions, Animated } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
-const xPosIn = -37;
+const xPosIn = 0;
 const xPosOut = -750;
 
 export default class FeatDetails extends React.Component {
@@ -71,7 +71,8 @@ export default class FeatDetails extends React.Component {
 			flexDirection: 'row',
 			flexWrap:'wrap',
 			position:'absolute',
-			top:-height * .7,
+			width: width,
+			top:50,
 			backgroundColor:'rgba(255, 255, 255, 0.5)'
 		};
 

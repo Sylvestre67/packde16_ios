@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Image, Dimensions, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet, View, Text, Image, Dimensions, ActivityIndicator, Alert } from 'react-native';
 
 import _ from 'lodash';
+import Icon from 'react-native-vector-icons/Ionicons';
 import Sound from 'react-native-sound'
 import Swiper from 'react-native-swiper';
 import KeepAwake from 'react-native-keep-awake';
@@ -70,11 +71,9 @@ export default class App extends React.Component {
 		});
 	}
 
-	componentDidUpdate(prevProps, prevState){}
-
 	componentDidMount(){
 		/* Load track 0 */
-		// this._loadNewSound(this.state.index);
+		this._loadNewSound(this.state.index);
 	}
 
 	_loadNewSound(trackIndex){
@@ -153,7 +152,7 @@ export default class App extends React.Component {
 			return (<View style={styles.slide} key={index}>
 				<Image  style={styles.image}  source={image} />
 			</View>)
-		})
+		});
 	}
 
 	_renderPagination(index, total, context){
@@ -161,37 +160,50 @@ export default class App extends React.Component {
 				<View style={styles.cardStyle}>
 					<PlayPause {...this.state} onPress={this._playPauseSound}/>
 					<TrackDetails {...this.state} />
-					<FeatDetails {...this.state} />
 				</View>
+				{/*<FeatDetails {...this.state} />*/}
 			</View>)
 	}
 
 	render() {
-		return (<Swiper ref={component => this.swiper = component}
-			            loop={false}
-			            renderPagination={ this._renderPagination }
-			            onMomentumScrollEnd={(e, state, context) => {
-			            	/* pause the song */
-			            	(this.state.sound.pause) ? this.state.sound.pause() : false;
 
-							this.setState((prevState) => {
-								return Object.assign(prevState,{
-									index: state.index,
-									isPlaying: false,
-									isLoaded: false })
-							});
+		return (<View style={styles.wrapper}>
+			<Swiper ref={component => this.swiper = component}
+			        loop={false}
+			        showsButtons={true}
+			        nextButton={<View style={styles.buttonTextWrapper}>
+				        <Icon name="ios-arrow-forward" style={styles.buttonText} />
+			        </View>}
+			        prevButton={<View style={styles.buttonTextWrapper}>
+				        <Icon name="ios-arrow-back" style={styles.buttonText} />
+			        </View>}
+			        renderPagination={ this._renderPagination }
+			        onMomentumScrollEnd={(e, state, context) => {
+				        /* pause the song */
+				        (this.state.sound.pause) ? this.state.sound.pause() : false;
 
-			               return this._handleSwipe(state.index)
-			            }}
-			            onTouchStartCapture={(e, state, context) => {}}>
+				        this.setState((prevState) => {
+					        return Object.assign(prevState,{
+						        index: state.index,
+						        isPlaying: false,
+						        isLoaded: false })
+				        });
+
+				        return this._handleSwipe(state.index)
+			        }}
+			        onTouchStartCapture={(e, state, context) => {}}>
 				{this._renderSwipedView()}
-			</Swiper>)
+			</Swiper>
+			<View style={{position:'absolute', top:0,backgroundColor:'red'}}>
+				<FeatDetails {...this.state} />
+			</View>
+		</View>)
 	}
 }
 
 const styles = StyleSheet.create({
 	wrapper: {
-
+		flex:1
 	},
 	slide: {
 		flex: 1,
@@ -208,7 +220,6 @@ const styles = StyleSheet.create({
 		width:  width * .8,
 		bottom: width * .1,
 		left:  width * .1,
-		backgroundColor: 'rgba(255, 255, 255, 0.5)',
 	},
 	cardStyle: {
 		flex:1,
@@ -216,5 +227,18 @@ const styles = StyleSheet.create({
 		flexWrap:'wrap',
 		justifyContent: 'space-around',
 		alignContent: 'center',
+		backgroundColor: 'rgba(255, 255, 255, 0.5)',
+	},
+	buttonTextWrapper:{
+		borderRadius:40,
+		width:40,
+		height:40,
+		backgroundColor: 'rgba(255, 255, 255, 0.3)',
+		paddingTop:10,
+		paddingLeft:17
+	},
+	buttonText: {
+		color:'rgba(0,0,0,0.5)',
+		fontSize: 20,
 	}
 });
