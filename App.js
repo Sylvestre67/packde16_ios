@@ -29,19 +29,19 @@ const tracks = [
 	{
 		url  : 'https://s3.eu-central-1.amazonaws.com/pack-de-16/11_je_ne_comprends_pas.mp3',
 		title: 'Je ne comprends pas',
-		feat : 'Mr. Kozmo ft. #packde16',
+		feat : '#packde16',
 		avatar: burger
 	},
 	{
 		url: 'https://s3.eu-central-1.amazonaws.com/pack-de-16/pack_de_nyls.mp3',
 		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls',
+		feat: 'Nyls',
 		avatar: ride
 	},
 	{
 		url: 'https://s3.eu-central-1.amazonaws.com/pack-de-16/pack_de_nyls.mp3',
 		title: 'Pack de Nyls',
-		feat: 'Mr. Kozmo ft. Nyls',
+		feat: 'Jeser',
 		avatar: toy
 	}
 ];
@@ -161,7 +161,6 @@ export default class App extends React.Component {
 					<PlayPause {...this.state} onPress={this._playPauseSound}/>
 					<TrackDetails {...this.state} />
 				</View>
-				{/*<FeatDetails {...this.state} />*/}
 			</View>)
 	}
 
