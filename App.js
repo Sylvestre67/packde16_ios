@@ -10,6 +10,8 @@ import KeepAwake from 'react-native-keep-awake';
 import PlayPause from './components/PlayPause';
 import TrackDetails from './components/TrackDetails';
 import FeatDetails from './components/FeatDetails';
+import SelectMenu from './components/SelectMenu';
+import OpenClose from './components/OpenClose';
 
 import blue_sky from './backgrounds/blue_sky.png';
 import bombes from './backgrounds/bombes.png';
@@ -53,6 +55,7 @@ export default class App extends React.Component {
 		this._playPauseSound = this._playPauseSound.bind(this);
 		this._renderPagination = this._renderPagination.bind(this);
 		this._handleSwipe = _.debounce(this._handleSwipe, 500);
+		this._toggleMenu = this._toggleMenu.bind(this);
 
 		this.swiper = {};
 	}
@@ -66,17 +69,18 @@ export default class App extends React.Component {
 				isLoaded: false,
 				tracks: tracks,
 				index: 0,
-				sound: {}
+				sound: {},
+				isOpen: false
 			})
 		});
 	}
 
 	componentDidMount(){
 		/* Load track 0 */
-		this._loadNewSound(this.state.index);
+		this._loadNewSound(this.state.index,true);
 	}
 
-	_loadNewSound(trackIndex){
+	_loadNewSound(trackIndex,initial){
 
 		this.setState((prevState) => {
 			return Object.assign(prevState,{ isLoaded: false })
@@ -91,7 +95,10 @@ export default class App extends React.Component {
 				this.setState((prevState) => {
 					return Object.assign(prevState,{ isLoaded: true, sound: newSound })
 				});
-				this._playSound();
+
+				if(!initial){
+					this._playSound();
+				}
 			}
 		});
 
@@ -147,6 +154,12 @@ export default class App extends React.Component {
 		this._loadNewSound(index);
 	}
 
+	_toggleMenu(){
+		this.setState((prevState) => {
+			return {isOpen: !prevState.isOpen}
+		})
+	}
+
 	_renderSwipedView(){
 		return images.map((image,index) => {
 			return (<View style={styles.slide} key={index}>
@@ -193,8 +206,14 @@ export default class App extends React.Component {
 			        onTouchStartCapture={(e, state, context) => {}}>
 				{this._renderSwipedView()}
 			</Swiper>
-			<View style={{position:'absolute', top:0,backgroundColor:'red'}}>
+			<View style={{position:'absolute', top:0}}>
 				<FeatDetails {...this.state} />
+			</View>
+			<View style={{position:'absolute', top:0}}>
+				<SelectMenu {...this.state} {...this.props} />
+			</View>
+			<View style={{position:'absolute', top:0}}>
+				<OpenClose isOpen={this.state.isOpen} onPress={this._toggleMenu} />
 			</View>
 		</View>)
 	}

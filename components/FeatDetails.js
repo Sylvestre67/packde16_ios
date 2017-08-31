@@ -72,7 +72,7 @@ export default class FeatDetails extends React.Component {
 			flexWrap:'wrap',
 			position:'absolute',
 			width: width,
-			top:50,
+			top:80,
 			backgroundColor:'rgba(255, 255, 255, 0.5)'
 		};
 
